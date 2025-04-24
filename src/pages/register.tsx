@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 const RegisterPage = () => (
@@ -33,9 +34,9 @@ const RegisterPage = () => (
         </button>
         <p className="text-sm text-center">
           Already have an account?
-          <a href="/login" className="text-blue-600 hover:underline">
+          <Link href="/login" className="text-blue-600 hover:underline">
             Login
-          </a>
+          </Link>
         </p>
       </form>
     </div>
