@@ -29,18 +29,16 @@ const RegisterPage = () => {
       { message: 'Passwords do not match', path: ['confirmPassword'] }
     );
 
-  type UserSchema = z.infer<typeof userForm>;
-
   const {
     register,
     formState: { errors: inputErrors },
     handleSubmit,
     clearErrors,
-  } = useForm<UserSchema>({
+  } = useForm<z.infer<typeof userForm>>({
     resolver: zodResolver(userForm),
   });
 
-  const onSubmit = (data: UserSchema) => console.log(data);
+  const onSubmit = async (data: z.infer<typeof userForm>) => console.log(data);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -65,12 +63,12 @@ const RegisterPage = () => {
           {InputError(inputErrors.email?.message)}
           <div className="relative">
             <Input
-            {...register('password')}
-            onChange={() => clearErrors('password')}
+              {...register('password')}
+              onChange={() => clearErrors('password')}
               type={passwordIsShow ? 'text' : 'password'}
-            placeholder="Password"
+              placeholder="Password"
               className="px-4 w-full py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+            />
             <button
               type="button"
               className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500"
@@ -82,12 +80,12 @@ const RegisterPage = () => {
           {InputError(inputErrors.password?.message)}
           <div className="relative">
             <Input
-            {...register('confirmPassword')}
-            onChange={() => clearErrors('confirmPassword')}
+              {...register('confirmPassword')}
+              onChange={() => clearErrors('confirmPassword')}
               type={confirmPasswordIsShow ? 'text' : 'password'}
-            placeholder="Confirm Password"
+              placeholder="Confirm Password"
               className="px-4 py-2 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+            />
             <button
               type="button"
               className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500"
