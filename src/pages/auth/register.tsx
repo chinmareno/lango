@@ -1,3 +1,4 @@
+import InputError from '@/components/common/InputError';
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
@@ -53,7 +54,7 @@ const RegisterPage = () => {
             placeholder="Name"
             className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {inputErrors.name && <p>{inputErrors.name.message}</p>}
+          {InputError(inputErrors.name?.message)}
           <Input
             {...register('email')}
             onChange={() => clearErrors('email')}
@@ -61,6 +62,7 @@ const RegisterPage = () => {
             placeholder="Email"
             className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          {InputError(inputErrors.email?.message)}
           <div className="relative">
             <Input
             {...register('password')}
@@ -77,6 +79,7 @@ const RegisterPage = () => {
               {passwordIsShow ? <EyeClosed size={20} /> : <Eye size={20} />}
             </button>
           </div>
+          {InputError(inputErrors.password?.message)}
           <div className="relative">
             <Input
             {...register('confirmPassword')}
@@ -97,6 +100,7 @@ const RegisterPage = () => {
               )}
             </button>
           </div>
+          {InputError(inputErrors.confirmPassword?.message)}
           <button
             type="submit"
             className="bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
