@@ -1,3 +1,4 @@
+import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import React from 'react';
@@ -41,7 +42,7 @@ const RegisterPage = () => {
       <div className="w-full max-w-md bg-white p-6 rounded-2xl shadow-lg">
         <h1 className="text-2xl font-bold mb-6 text-center">Create Account</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          <input
+          <Input
             {...register('name')}
             onChange={() => clearErrors('name')}
             type="text"
@@ -49,23 +50,21 @@ const RegisterPage = () => {
             className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           {inputErrors.name && <p>{inputErrors.name.message}</p>}
-          <input
+          <Input
             {...register('email')}
             onChange={() => clearErrors('email')}
             type="text  "
             placeholder="Email"
             className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {inputErrors.email && <p>{inputErrors.email.message}</p>}
-          <input
+            <Input
             {...register('password')}
             onChange={() => clearErrors('password')}
             type="password"
             placeholder="Password"
             className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {inputErrors.password && <p>{inputErrors.password.message}</p>}
-          <input
+            <Input
             {...register('confirmPassword')}
             onChange={() => clearErrors('confirmPassword')}
             type="password"
@@ -92,4 +91,5 @@ const RegisterPage = () => {
     </div>
   );
 };
+
 export default RegisterPage;
