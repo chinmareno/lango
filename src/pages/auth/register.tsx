@@ -1,11 +1,15 @@
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { Eye, EyeClosed } from 'lucide-react';
 
 const RegisterPage = () => {
+  const [passwordIsShow, setPasswordIsShow] = useState(false);
+  const [confirmPasswordIsShow, setConfirmPasswordIsShow] = useState(false);
+
   const userForm = z
     .object({
       name: z.string().min(1, 'Name is required'),
@@ -57,23 +61,42 @@ const RegisterPage = () => {
             placeholder="Email"
             className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          <div className="relative">
             <Input
             {...register('password')}
             onChange={() => clearErrors('password')}
-            type="password"
+              type={passwordIsShow ? 'text' : 'password'}
             placeholder="Password"
-            className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-4 w-full py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+            <button
+              type="button"
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500"
+              onClick={() => setPasswordIsShow(!passwordIsShow)}
+            >
+              {passwordIsShow ? <EyeClosed size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
+          <div className="relative">
             <Input
             {...register('confirmPassword')}
             onChange={() => clearErrors('confirmPassword')}
-            type="password"
+              type={confirmPasswordIsShow ? 'text' : 'password'}
             placeholder="Confirm Password"
-            className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-4 py-2 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {inputErrors.confirmPassword && (
-            <p>{inputErrors.confirmPassword.message}</p>
-          )}
+            <button
+              type="button"
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500"
+              onClick={() => setConfirmPasswordIsShow(!confirmPasswordIsShow)}
+            >
+              {confirmPasswordIsShow ? (
+                <EyeClosed size={20} />
+              ) : (
+                <Eye size={20} />
+              )}
+            </button>
+          </div>
           <button
             type="submit"
             className="bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
