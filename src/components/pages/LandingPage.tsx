@@ -18,7 +18,7 @@ export const LandingPage = () => {
           Get Started
         </Link>
         <Link
-          href="./"
+          href="./auth/login"
           className="px-6 py-2 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-100 transition"
         >
           Login
