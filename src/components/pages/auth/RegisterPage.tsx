@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorMessage from "@/components/common/ErrorMessage";
+import { EyeToogleButton } from "@/components/common/EyeToogleButton";
 
 const RegisterPage = () => {
   const [passwordIsShow, setPasswordIsShow] = useState(false);
@@ -73,13 +74,11 @@ const RegisterPage = () => {
               placeholder="Password"
               className="px-4 w-full py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <button
-              onClick={() => setPasswordIsShow(!passwordIsShow)}
-              type="button"
+            <EyeToogleButton
+              eyeIsOpen={passwordIsShow}
+              setEyeIsOpen={setPasswordIsShow}
               className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500"
-            >
-              {passwordIsShow ? <EyeClosed size={20} /> : <Eye size={20} />}
-            </button>
+            />
           </div>
           <ErrorMessage
             className="ml-2 -mt-2 text-sm text-red-500"
@@ -92,17 +91,11 @@ const RegisterPage = () => {
               placeholder="Confirm Password"
               className="px-4 py-2 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <button
-              onClick={() => setConfirmPasswordIsShow(!confirmPasswordIsShow)}
-              type="button"
+            <EyeToogleButton
+              eyeIsOpen={confirmPasswordIsShow}
+              setEyeIsOpen={setConfirmPasswordIsShow}
               className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500"
-            >
-              {confirmPasswordIsShow ? (
-                <EyeClosed size={20} />
-              ) : (
-                <Eye size={20} />
-              )}
-            </button>
+            />
           </div>
           <ErrorMessage
             className="ml-2 -mt-2 text-sm text-red-500"
