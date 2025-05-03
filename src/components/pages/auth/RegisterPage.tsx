@@ -3,16 +3,16 @@
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import React, { useState } from "react";
-import { Eye, EyeClosed } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorMessage from "@/components/common/ErrorMessage";
-import { EyeToogleButton } from "@/components/common/EyeToogleButton";
+import { EyeToggleButton } from "@/components/common/EyeToggleButton";
 
 const RegisterPage = () => {
-  const [passwordIsShow, setPasswordIsShow] = useState(false);
-  const [confirmPasswordIsShow, setConfirmPasswordIsShow] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
+    useState(false);
 
   const userSchema = z
     .object({
@@ -40,14 +40,17 @@ const RegisterPage = () => {
     resolver: zodResolver(userSchema),
   });
 
-  const onSubmit = async (data: z.infer<typeof userSchema>) =>
+  const handleRegister = async (data: z.infer<typeof userSchema>) =>
     console.log(data);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white p-6 rounded-2xl shadow-lg">
         <h1 className="text-2xl font-bold mb-6 text-center">Create Account</h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+        <form
+          onSubmit={handleSubmit(handleRegister)}
+          className="flex flex-col gap-4"
+        >
           <Input
             {...register("name")}
             type="text"
@@ -71,13 +74,13 @@ const RegisterPage = () => {
           <div className="relative">
             <Input
               {...register("password")}
-              type={passwordIsShow ? "text" : "password"}
+              type={isPasswordVisible ? "text" : "password"}
               placeholder="Password"
               className="px-4 pr-14 w-full py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <EyeToogleButton
-              eyeIsOpen={passwordIsShow}
-              setEyeIsOpen={setPasswordIsShow}
+            <EyeToggleButton
+              eyeIsOpen={isPasswordVisible}
+              setEyeIsOpen={setIsPasswordVisible}
               className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500"
             />
           </div>
@@ -88,13 +91,13 @@ const RegisterPage = () => {
           <div className="relative">
             <Input
               {...register("confirmPassword")}
-              type={confirmPasswordIsShow ? "text" : "password"}
+              type={isConfirmPasswordVisible ? "text" : "password"}
               placeholder="Confirm Password"
               className="px-4 pr-14 py-2 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <EyeToogleButton
-              eyeIsOpen={confirmPasswordIsShow}
-              setEyeIsOpen={setConfirmPasswordIsShow}
+            <EyeToggleButton
+              eyeIsOpen={isConfirmPasswordVisible}
+              setEyeIsOpen={setIsConfirmPasswordVisible}
               className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500"
             />
           </div>

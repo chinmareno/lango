@@ -1,7 +1,7 @@
 "use client";
 
 import ErrorMessage from "@/components/common/ErrorMessage";
-import { EyeToogleButton } from "@/components/common/EyeToogleButton";
+import { EyeToggleButton } from "@/components/common/EyeToggleButton";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const LoginPage = () => {
-  const [passwordIsShow, setPasswordIsShow] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const userSchema = z.object({
     email: z.string().email("Invalid email address"),
@@ -25,7 +25,7 @@ const LoginPage = () => {
     resolver: zodResolver(userSchema),
   });
 
-  const onSubmit = async (data: z.infer<typeof userSchema>) =>
+  const handleLogin = async (data: z.infer<typeof userSchema>) =>
     console.log(data);
 
   return (
@@ -34,7 +34,10 @@ const LoginPage = () => {
         <h1 className="text-2xl font-bold mb-6 text-center">
           Login to Your Account
         </h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+        <form
+          onSubmit={handleSubmit(handleLogin)}
+          className="flex flex-col gap-4"
+        >
           <Input
             {...register("email")}
             type="email"
@@ -48,14 +51,14 @@ const LoginPage = () => {
           <div className="relative">
             <Input
               {...register("password")}
-              type={passwordIsShow ? "text" : "password"}
+              type={isPasswordVisible ? "text" : "password"}
               placeholder="Password"
               className="px-4 pr-14 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <EyeToogleButton
+            <EyeToggleButton
               className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500"
-              eyeIsOpen={passwordIsShow}
-              setEyeIsOpen={setPasswordIsShow}
+              eyeIsOpen={isPasswordVisible}
+              setEyeIsOpen={setIsPasswordVisible}
             />
           </div>
           <ErrorMessage
