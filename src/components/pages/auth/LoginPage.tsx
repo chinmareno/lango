@@ -24,7 +24,7 @@ const LoginPage = () => {
             <Input
               type={passwordIsShow ? "text" : "password"}
               placeholder="Password"
-              className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-4 pr-14 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             ></Input>
             <EyeToogleButton
               className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500"

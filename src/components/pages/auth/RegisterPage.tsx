@@ -72,7 +72,7 @@ const RegisterPage = () => {
               {...register("password")}
               type={passwordIsShow ? "text" : "password"}
               placeholder="Password"
-              className="px-4 w-full py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-4 pr-14 w-full py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <EyeToogleButton
               eyeIsOpen={passwordIsShow}
@@ -89,7 +89,7 @@ const RegisterPage = () => {
               {...register("confirmPassword")}
               type={confirmPasswordIsShow ? "text" : "password"}
               placeholder="Confirm Password"
-              className="px-4 py-2 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-4 pr-14 py-2 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <EyeToogleButton
               eyeIsOpen={confirmPasswordIsShow}
