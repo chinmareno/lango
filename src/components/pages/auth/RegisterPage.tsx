@@ -14,7 +14,7 @@ const RegisterPage = () => {
   const [passwordIsShow, setPasswordIsShow] = useState(false);
   const [confirmPasswordIsShow, setConfirmPasswordIsShow] = useState(false);
 
-  const userForm = z
+  const userSchema = z
     .object({
       name: z.string().min(1, "Name is required"),
       email: z.string().email("Invalid email address"),
@@ -36,11 +36,12 @@ const RegisterPage = () => {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<z.infer<typeof userForm>>({
-    resolver: zodResolver(userForm),
+  } = useForm<z.infer<typeof userSchema>>({
+    resolver: zodResolver(userSchema),
   });
 
-  const onSubmit = async (data: z.infer<typeof userForm>) => console.log(data);
+  const onSubmit = async (data: z.infer<typeof userSchema>) =>
+    console.log(data);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
