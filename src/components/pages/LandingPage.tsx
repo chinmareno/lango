@@ -12,7 +12,7 @@ export const LandingPage = () => {
       </p>
       <div className="flex gap-4">
         <Link
-          href="./"
+          href="./auth/register"
           className="px-6 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition"
         >
           Get Started
