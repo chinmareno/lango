@@ -1,12 +1,32 @@
 "use client";
 
+import ErrorMessage from "@/components/common/ErrorMessage";
 import { EyeToogleButton } from "@/components/common/EyeToogleButton";
 import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const LoginPage = () => {
   const [passwordIsShow, setPasswordIsShow] = useState(false);
+
+  const userSchema = z.object({
+    email: z.string().email("Invalid email address"),
+    password: z.string().min(6, "Password must be at least 6 characters long"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<z.infer<typeof userSchema>>({
+    resolver: zodResolver(userSchema),
+  });
+
+  const onSubmit = async (data: z.infer<typeof userSchema>) =>
+    console.log(data);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -14,24 +34,35 @@ const LoginPage = () => {
         <h1 className="text-2xl font-bold mb-6 text-center">
           Login to Your Account
         </h1>
-        <form className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <Input
+            {...register("email")}
             type="email"
             placeholder="Email"
             className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          <ErrorMessage
+            errorMessage={errors.email?.message}
+            className="ml-2 -mt-2 text-sm text-red-500"
+          />
           <div className="relative">
             <Input
+              {...register("password")}
               type={passwordIsShow ? "text" : "password"}
               placeholder="Password"
               className="px-4 pr-14 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-            ></Input>
+            />
             <EyeToogleButton
               className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500"
               eyeIsOpen={passwordIsShow}
               setEyeIsOpen={setPasswordIsShow}
             />
           </div>
+          <ErrorMessage
+            errorMessage={errors.password?.message}
+            className="ml-2 -mt-2 text-sm text-red-500"
+          />
+
           <div className="flex items-center justify-between">
             <label className="flex items-center text-sm">
               <input type="checkbox" className="mr-2" />
