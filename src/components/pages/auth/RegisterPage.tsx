@@ -4,10 +4,18 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";
+import { useForm } from "react-hook-form";
 
 const RegisterPage = () => {
   const [passwordIsShow, setPasswordIsShow] = useState(false);
   const [confirmPasswordIsShow, setConfirmPasswordIsShow] = useState(false);
+
+  const {
+    register,
+    formState: { errors: inputErrors },
+    handleSubmit,
+    clearErrors,
+  } = useForm();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -15,17 +23,20 @@ const RegisterPage = () => {
         <h1 className="text-2xl font-bold mb-6 text-center">Create Account</h1>
         <form className="flex flex-col gap-4">
           <Input
+            {...register("name")}
             type="text"
             placeholder="Name"
             className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <Input
+            {...register("email")}
             type="text  "
             placeholder="Email"
             className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <div className="relative">
             <Input
+              {...register("password")}
               type={passwordIsShow ? "text" : "password"}
               placeholder="Password"
               className="px-4 w-full py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -40,6 +51,7 @@ const RegisterPage = () => {
           </div>
           <div className="relative">
             <Input
+              {...register("confirmPassword")}
               type={confirmPasswordIsShow ? "text" : "password"}
               placeholder="Confirm Password"
               className="px-4 py-2 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
