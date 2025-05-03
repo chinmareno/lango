@@ -7,6 +7,7 @@ import { Eye, EyeClosed } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import ErrorMessage from "@/components/common/ErrorMessage";
 
 const RegisterPage = () => {
   const [passwordIsShow, setPasswordIsShow] = useState(false);
@@ -24,7 +25,7 @@ const RegisterPage = () => {
     .refine(
       (data) => {
         return (
-          data.password.length <= 6 || data.password === data.confirmPassword
+          data.password.length < 6 || data.password === data.confirmPassword
         );
       },
       { message: "Passwords do not match", path: ["confirmPassword"] }
@@ -34,7 +35,6 @@ const RegisterPage = () => {
     register,
     formState: { errors },
     handleSubmit,
-    clearErrors,
   } = useForm<z.infer<typeof userForm>>({
     resolver: zodResolver(userForm),
   });
@@ -48,32 +48,27 @@ const RegisterPage = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <Input
             {...register("name")}
-            onChange={() => clearErrors("name")}
             type="text"
             placeholder="Name"
             className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {errors.name?.message && (
-            <p className="ml-2 -mt-2 text-sm text-red-500">
-              {errors.name?.message}
-            </p>
-          )}
+          <ErrorMessage
+            className="ml-2 -mt-2 text-sm text-red-500"
+            errorMessage={errors.name?.message}
+          />
           <Input
             {...register("email")}
-            onChange={() => clearErrors("email")}
             type="text  "
             placeholder="Email"
             className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {errors.email?.message && (
-            <p className="ml-2 -mt-2 text-sm text-red-500">
-              {errors.email?.message}
-            </p>
-          )}
+          <ErrorMessage
+            className="ml-2 -mt-2 text-sm text-red-500"
+            errorMessage={errors.email?.message}
+          />
           <div className="relative">
             <Input
               {...register("password")}
-              onChange={() => clearErrors("password")}
               type={passwordIsShow ? "text" : "password"}
               placeholder="Password"
               className="px-4 w-full py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -86,15 +81,13 @@ const RegisterPage = () => {
               {passwordIsShow ? <EyeClosed size={20} /> : <Eye size={20} />}
             </button>
           </div>
-          {errors.password?.message && (
-            <p className="ml-2 -mt-2 text-sm text-red-500">
-              {errors.password?.message}
-            </p>
-          )}
+          <ErrorMessage
+            className="ml-2 -mt-2 text-sm text-red-500"
+            errorMessage={errors.password?.message}
+          />
           <div className="relative">
             <Input
               {...register("confirmPassword")}
-              onChange={() => clearErrors("confirmPassword")}
               type={confirmPasswordIsShow ? "text" : "password"}
               placeholder="Confirm Password"
               className="px-4 py-2 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -111,11 +104,10 @@ const RegisterPage = () => {
               )}
             </button>
           </div>
-          {errors.confirmPassword?.message && (
-            <p className="ml-2 -mt-2 text-sm text-red-500">
-              {errors.confirmPassword?.message}
-            </p>
-          )}
+          <ErrorMessage
+            className="ml-2 -mt-2 text-sm text-red-500"
+            errorMessage={errors.confirmPassword?.message}
+          />
           <button
             type="submit"
             className="bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
