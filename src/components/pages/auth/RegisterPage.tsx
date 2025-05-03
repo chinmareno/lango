@@ -5,38 +5,75 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const RegisterPage = () => {
   const [passwordIsShow, setPasswordIsShow] = useState(false);
   const [confirmPasswordIsShow, setConfirmPasswordIsShow] = useState(false);
 
+  const userForm = z
+    .object({
+      name: z.string().min(1, "Name is required"),
+      email: z.string().email("Invalid email address"),
+      password: z
+        .string()
+        .min(6, "Password must be at least 6 characters long"),
+      confirmPassword: z.string().min(1, "Confirm Password is required"),
+    })
+    .refine(
+      (data) => {
+        return (
+          data.password.length <= 6 || data.password === data.confirmPassword
+        );
+      },
+      { message: "Passwords do not match", path: ["confirmPassword"] }
+    );
+
   const {
     register,
-    formState: { errors: inputErrors },
+    formState: { errors },
     handleSubmit,
     clearErrors,
-  } = useForm();
+  } = useForm<z.infer<typeof userForm>>({
+    resolver: zodResolver(userForm),
+  });
+
+  const onSubmit = async (data: z.infer<typeof userForm>) => console.log(data);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white p-6 rounded-2xl shadow-lg">
         <h1 className="text-2xl font-bold mb-6 text-center">Create Account</h1>
-        <form className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <Input
             {...register("name")}
+            onChange={() => clearErrors("name")}
             type="text"
             placeholder="Name"
             className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          {errors.name?.message && (
+            <p className="ml-2 -mt-2 text-sm text-red-500">
+              {errors.name?.message}
+            </p>
+          )}
           <Input
             {...register("email")}
+            onChange={() => clearErrors("email")}
             type="text  "
             placeholder="Email"
             className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          {errors.email?.message && (
+            <p className="ml-2 -mt-2 text-sm text-red-500">
+              {errors.email?.message}
+            </p>
+          )}
           <div className="relative">
             <Input
               {...register("password")}
+              onChange={() => clearErrors("password")}
               type={passwordIsShow ? "text" : "password"}
               placeholder="Password"
               className="px-4 w-full py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -49,9 +86,15 @@ const RegisterPage = () => {
               {passwordIsShow ? <EyeClosed size={20} /> : <Eye size={20} />}
             </button>
           </div>
+          {errors.password?.message && (
+            <p className="ml-2 -mt-2 text-sm text-red-500">
+              {errors.password?.message}
+            </p>
+          )}
           <div className="relative">
             <Input
               {...register("confirmPassword")}
+              onChange={() => clearErrors("confirmPassword")}
               type={confirmPasswordIsShow ? "text" : "password"}
               placeholder="Confirm Password"
               className="px-4 py-2 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -68,6 +111,11 @@ const RegisterPage = () => {
               )}
             </button>
           </div>
+          {errors.confirmPassword?.message && (
+            <p className="ml-2 -mt-2 text-sm text-red-500">
+              {errors.confirmPassword?.message}
+            </p>
+          )}
           <button
             type="submit"
             className="bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
