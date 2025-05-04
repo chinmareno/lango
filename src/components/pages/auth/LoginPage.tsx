@@ -46,7 +46,7 @@ const LoginPage = () => {
           />
           <ErrorMessage
             errorMessage={errors.email?.message}
-            className="ml-2 -mt-2 text-sm text-red-500"
+            className="ml-2 -mt-2"
           />
           <div className="relative">
             <Input
@@ -63,7 +63,7 @@ const LoginPage = () => {
           </div>
           <ErrorMessage
             errorMessage={errors.password?.message}
-            className="ml-2 -mt-2 text-sm text-red-500"
+            className="ml-2 -mt-2 text-sm"
           />
 
           <div className="flex items-center justify-between">

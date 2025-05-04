@@ -58,7 +58,7 @@ const RegisterPage = () => {
             className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <ErrorMessage
-            className="ml-2 -mt-2 text-sm text-red-500"
+            className="ml-2 -mt-2 text-sm"
             errorMessage={errors.name?.message}
           />
           <Input
@@ -68,7 +68,7 @@ const RegisterPage = () => {
             className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <ErrorMessage
-            className="ml-2 -mt-2 text-sm text-red-500"
+            className="ml-2 -mt-2 text-sm"
             errorMessage={errors.email?.message}
           />
           <div className="relative">
@@ -85,7 +85,7 @@ const RegisterPage = () => {
             />
           </div>
           <ErrorMessage
-            className="ml-2 -mt-2 text-sm text-red-500"
+            className="ml-2 -mt-2"
             errorMessage={errors.password?.message}
           />
           <div className="relative">
@@ -102,7 +102,7 @@ const RegisterPage = () => {
             />
           </div>
           <ErrorMessage
-            className="ml-2 -mt-2 text-sm text-red-500"
+            className="ml-2 -mt-2 text-sm"
             errorMessage={errors.confirmPassword?.message}
           />
           <button

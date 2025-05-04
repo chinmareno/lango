@@ -20,11 +20,7 @@ export const EyeToggleButton = ({
       className={className}
       onClick={() => setEyeIsOpen((eyeIsOpen) => !eyeIsOpen)}
     >
-      {eyeIsOpen ? (
-        <Eye size={eyeSize} className={className} />
-      ) : (
-        <EyeClosed size={eyeSize} className={className} />
-      )}
+      {eyeIsOpen ? <Eye size={eyeSize} /> : <EyeClosed size={eyeSize} />}
     </button>
   );
 };
