@@ -8,7 +8,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorMessage from "@/components/common/ErrorMessage";
 import { EyeToggleButton } from "@/components/common/EyeToggleButton";
-import registerAction from "@/actions/auth/register";
+import registerAction from "@/actions/auth/registerAction";
 import registerSchema from "@/lib/schemas/registerSchema";
 
 const RegisterPage = () => {
@@ -25,7 +25,11 @@ const RegisterPage = () => {
   });
 
   const handleRegister = async (data: z.infer<typeof registerSchema>) => {
-    console.log(registerAction());
+    try {
+      await registerAction(data);
+    } catch (error) {
+      console.error("Registration error:", error);
+    }
   };
 
   return (
