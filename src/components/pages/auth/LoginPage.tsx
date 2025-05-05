@@ -3,6 +3,7 @@
 import ErrorMessage from "@/components/common/ErrorMessage";
 import { EyeToggleButton } from "@/components/common/EyeToggleButton";
 import { Input } from "@/components/ui/input";
+import loginSchema from "@/lib/schemas/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -12,20 +13,15 @@ import { z } from "zod";
 const LoginPage = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const userSchema = z.object({
-    email: z.string().email("Invalid email address"),
-    password: z.string().min(6, "Password must be at least 6 characters long"),
-  });
-
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<z.infer<typeof userSchema>>({
-    resolver: zodResolver(userSchema),
+  } = useForm<z.infer<typeof loginSchema>>({
+    resolver: zodResolver(loginSchema),
   });
 
-  const handleLogin = async (data: z.infer<typeof userSchema>) =>
+  const handleLogin = async (data: z.infer<typeof loginSchema>) =>
     console.log(data);
 
   return (

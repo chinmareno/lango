@@ -8,40 +8,25 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorMessage from "@/components/common/ErrorMessage";
 import { EyeToggleButton } from "@/components/common/EyeToggleButton";
+import registerAction from "@/actions/auth/register";
+import registerSchema from "@/lib/schemas/registerSchema";
 
 const RegisterPage = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
     useState(false);
 
-  const userSchema = z
-    .object({
-      name: z.string().min(1, "Name is required"),
-      email: z.string().email("Invalid email address"),
-      password: z
-        .string()
-        .min(6, "Password must be at least 6 characters long"),
-      confirmPassword: z.string().min(1, "Confirm Password is required"),
-    })
-    .refine(
-      (data) => {
-        return (
-          data.password.length < 6 || data.password === data.confirmPassword
-        );
-      },
-      { message: "Passwords do not match", path: ["confirmPassword"] }
-    );
-
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<z.infer<typeof userSchema>>({
-    resolver: zodResolver(userSchema),
+  } = useForm<z.infer<typeof registerSchema>>({
+    resolver: zodResolver(registerSchema),
   });
 
-  const handleRegister = async (data: z.infer<typeof userSchema>) =>
-    console.log(data);
+  const handleRegister = async (data: z.infer<typeof registerSchema>) => {
+    console.log(registerAction());
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
