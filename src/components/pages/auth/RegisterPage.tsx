@@ -10,6 +10,7 @@ import ErrorMessage from "@/components/common/ErrorMessage";
 import { EyeToggleButton } from "@/components/common/EyeToggleButton";
 import registerAction from "@/actions/auth/registerAction";
 import registerSchema from "@/lib/schemas/registerSchema";
+import { toast } from "sonner";
 
 const RegisterPage = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -25,10 +26,9 @@ const RegisterPage = () => {
   });
 
   const handleRegister = async (data: z.infer<typeof registerSchema>) => {
-    try {
-      await registerAction(data);
-    } catch (error) {
-      console.error("Registration error:", error);
+    const res = await registerAction(data);
+    if (!res.success) {
+      toast.error(res.message);
     }
   };
 
