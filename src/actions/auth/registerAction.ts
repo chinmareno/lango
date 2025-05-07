@@ -5,8 +5,12 @@ import registerSchema from "@/lib/schemas/registerSchema";
 import { z } from "zod";
 import bcrypt from "bcrypt";
 import { redirect } from "next/navigation";
+import { createToken } from "@/lib/session";
+import { cookies } from "next/headers";
 
 type RegisterData = z.infer<typeof registerSchema>;
+
+const isProduction = process.env.NODE_ENV === "production";
 
 export default async function registerAction(data: RegisterData) {
   try {
@@ -22,10 +26,32 @@ export default async function registerAction(data: RegisterData) {
     await prisma.user.create({
       data: { name, email, password: hashedPassword },
     });
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+    if (!user) return { success: false, message: "User not found" };
+    const token = await createToken({
+      userId: user.id,
+      email: user.email,
+    });
+    const cookieStore = await cookies();
+
+    cookieStore.set({
+      name: "jwt",
+      value: token,
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: "lax",
+    });
   } catch (error: any) {
-    console.log(error);
+    console.log("Error happen because of: ", error.message);
     if (error instanceof z.ZodError) {
       return { success: false, message: error.errors[0].message };
+    } else if (error.message === "Error creating token") {
+      return {
+        success: false,
+        message: "Failed to create authentication token",
+      };
     } else {
       return { success: false, message: "Registration failed" };
     }
