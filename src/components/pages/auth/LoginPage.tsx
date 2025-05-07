@@ -1,5 +1,6 @@
 "use client";
 
+import loginAction from "@/actions/auth/loginAction";
 import ErrorMessage from "@/components/common/ErrorMessage";
 import { EyeToggleButton } from "@/components/common/EyeToggleButton";
 import { Input } from "@/components/ui/input";
@@ -8,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const LoginPage = () => {
@@ -21,8 +23,12 @@ const LoginPage = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const handleLogin = async (data: z.infer<typeof loginSchema>) =>
-    console.log(data);
+  const handleLogin = async (data: z.infer<typeof loginSchema>) => {
+    const res = await loginAction(data);
+    if (!res.success) {
+      return toast.error(res.message, { richColors: true, duration: 3000 });
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
