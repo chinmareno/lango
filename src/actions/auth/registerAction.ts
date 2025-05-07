@@ -7,10 +7,9 @@ import bcrypt from "bcrypt";
 import { redirect } from "next/navigation";
 import { createToken } from "@/lib/session";
 import { cookies } from "next/headers";
+import { isProductionEnvironment } from "@/lib/config";
 
 type RegisterData = z.infer<typeof registerSchema>;
-
-const isProduction = process.env.NODE_ENV === "production";
 
 export default async function registerAction(data: RegisterData) {
   try {
@@ -40,7 +39,7 @@ export default async function registerAction(data: RegisterData) {
       name: "jwt",
       value: token,
       httpOnly: true,
-      secure: isProduction,
+      secure: isProductionEnvironment,
       sameSite: "lax",
     });
   } catch (error: any) {
