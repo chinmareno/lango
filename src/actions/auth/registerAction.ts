@@ -5,9 +5,6 @@ import registerSchema from "@/lib/schemas/registerSchema";
 import { z } from "zod";
 import bcrypt from "bcrypt";
 import { redirect } from "next/navigation";
-import { createToken } from "@/lib/session";
-import { cookies } from "next/headers";
-import { isProductionEnvironment } from "@/lib/config";
 
 type RegisterData = z.infer<typeof registerSchema>;
 
@@ -29,19 +26,6 @@ export default async function registerAction(data: RegisterData) {
       where: { email },
     });
     if (!user) return { success: false, message: "User not found" };
-    const token = await createToken({
-      userId: user.id,
-      email: user.email,
-    });
-    const cookieStore = await cookies();
-
-    cookieStore.set({
-      name: "jwt",
-      value: token,
-      httpOnly: true,
-      secure: isProductionEnvironment,
-      sameSite: "lax",
-    });
   } catch (error: any) {
     console.log("Error happen because of: ", error.message);
     if (error instanceof z.ZodError) {
