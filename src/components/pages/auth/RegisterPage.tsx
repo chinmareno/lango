@@ -9,8 +9,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorMessage from "@/components/common/ErrorMessage";
 import { EyeToggleButton } from "@/components/common/EyeToggleButton";
 import registerAction from "@/actions/auth/registerAction";
-import registerSchema from "@/lib/schemas/registerSchema";
 import { toast } from "sonner";
+import { registerSchema } from "@/lib/zod";
 
 const RegisterPage = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);

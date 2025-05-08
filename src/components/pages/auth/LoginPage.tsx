@@ -4,7 +4,7 @@ import loginAction from "@/actions/auth/loginAction";
 import ErrorMessage from "@/components/common/ErrorMessage";
 import { EyeToggleButton } from "@/components/common/EyeToggleButton";
 import { Input } from "@/components/ui/input";
-import loginSchema from "@/lib/schemas/loginSchema";
+import { loginSchema } from "@/lib/zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import React, { useState } from "react";

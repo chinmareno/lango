@@ -1,10 +1,10 @@
 "use server";
 
-import prisma from "@/lib/prisma";
-import loginSchema from "@/lib/schemas/loginSchema";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import bcrypt from "bcrypt";
+import { loginSchema } from "@/lib/zod";
+import { comparePassword } from "@/lib/bcrypt";
+import { findUserByEmail } from "@/lib/prisma";
 
 type LoginSchema = z.infer<typeof loginSchema>;
 
@@ -12,13 +12,11 @@ export default async function loginAction(data: LoginSchema) {
   try {
     loginSchema.parse(data);
     const { email, password } = data;
-    const user = await prisma.user.findUnique({
-      where: { email },
-    });
+    const user = await findUserByEmail(email);
     if (!user) {
       return { success: false, message: "Invalid email or password" };
     }
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await comparePassword(password, user.password);
     if (!isPasswordValid) {
       return { success: false, message: "Invalid email or password" };
     }
