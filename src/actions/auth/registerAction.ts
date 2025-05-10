@@ -4,7 +4,7 @@ import { z } from "zod";
 import { redirect } from "next/navigation";
 import { registerSchema } from "@/lib/zod";
 import { hashPassword } from "@/lib/bcrypt";
-import { createUser, findUserByEmail } from "@/lib/prisma";
+import { createUser, findUserByEmail } from "@/lib/db";
 
 type RegisterData = z.infer<typeof registerSchema>;
 

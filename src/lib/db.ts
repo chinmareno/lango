@@ -16,6 +16,8 @@ const prisma =
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 
+export default prisma;
+
 export const createUser = async (data: ICreateUser) => {
   const user = await prisma.user.create({
     data,
