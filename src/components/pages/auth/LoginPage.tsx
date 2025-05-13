@@ -25,9 +25,25 @@ const LoginPage = () => {
   });
 
   const handleLogin = async (data: z.infer<typeof loginSchema>) => {
+    try {
       const res = await loginAction(data);
-    if (!res.success) {
-      return toast.error(res.message, { richColors: true, duration: 3000 });
+      if (!res?.success) {
+        return toast.error(res?.message, { richColors: true, duration: 3000 });
+      }
+      await signIn("credentials", { email: res.email });
+    } catch (error) {
+      const { message } = error as { message: string };
+      if (message === "Invalid email or password") {
+        return toast.error("Invalid email or password", {
+          richColors: true,
+          duration: 3000,
+        });
+      } else {
+        return toast.error("Something went wrong", {
+          richColors: true,
+          duration: 3000,
+        });
+      }
     }
   };
 
