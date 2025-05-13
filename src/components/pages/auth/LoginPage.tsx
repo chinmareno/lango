@@ -6,6 +6,7 @@ import { EyeToggleButton } from "@/components/common/EyeToggleButton";
 import { Input } from "@/components/ui/input";
 import { loginSchema } from "@/lib/zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -24,7 +25,7 @@ const LoginPage = () => {
   });
 
   const handleLogin = async (data: z.infer<typeof loginSchema>) => {
-    const res = await loginAction(data);
+      const res = await loginAction(data);
     if (!res.success) {
       return toast.error(res.message, { richColors: true, duration: 3000 });
     }
@@ -67,32 +68,23 @@ const LoginPage = () => {
             errorMessage={errors.password?.message}
             className="ml-2 -mt-2 text-sm"
           />
-
-          <div className="flex items-center justify-between">
-            <label className="flex items-center text-sm">
-              <input type="checkbox" className="mr-2" />
-              Keep me logged in
-            </label>
-            <Link href="" className="text-sm text-blue-600 hover:underline">
-              Forgot Password?
-            </Link>
-          </div>
+          <div className="flex items-center justify-between"></div>
           <button
             type="submit"
             className="bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
           >
             Login
           </button>
-          <p className="text-sm text-center">
-            Don't have an account?
-            <Link
-              href="./register"
-              className="text-blue-600 hover:underline ml-1"
-            >
-              Register
-            </Link>
-          </p>
         </form>
+        <p className="text-sm text-center">
+          Don't have an account?
+          <Link
+            href="./register"
+            className="text-blue-600 hover:underline ml-1"
+          >
+            Register
+          </Link>
+        </p>
       </div>
     </div>
   );
