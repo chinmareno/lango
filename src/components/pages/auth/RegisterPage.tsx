@@ -11,6 +11,7 @@ import { EyeToggleButton } from "@/components/common/EyeToggleButton";
 import registerAction from "@/actions/auth/registerAction";
 import { toast } from "sonner";
 import { registerSchema } from "@/lib/zod";
+import { signIn } from "next-auth/react";
 
 const RegisterPage = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -27,9 +28,10 @@ const RegisterPage = () => {
 
   const handleRegister = async (data: z.infer<typeof registerSchema>) => {
     const res = await registerAction(data);
-    if (!res.success) {
-      toast.error(res.message);
+    if (!res?.success) {
+      return toast.error(res?.message);
     }
+    await signIn("credentials", { email: res.email });
   };
 
   return (

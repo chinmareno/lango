@@ -1,7 +1,6 @@
 "use server";
 
 import { z } from "zod";
-import { redirect } from "next/navigation";
 import { registerSchema } from "@/lib/zod";
 import { hashPassword } from "@/lib/bcrypt";
 import { createUser, findUserByEmail } from "@/lib/db";
@@ -13,11 +12,13 @@ export default async function registerAction(data: RegisterData) {
     registerSchema.parse(data);
     const { name, email, password } = data;
     const existingUser = await findUserByEmail(email);
-    if (existingUser)
+    if (existingUser) {
       return { success: false, message: "Email already exists" };
+    }
 
     const hashedPassword = await hashPassword(password);
     await createUser({ name, email, password: hashedPassword });
+    return { success: true, email };
   } catch (error: any) {
     console.log("Error happen because of: ", error.message);
     if (error instanceof z.ZodError) {
@@ -31,5 +32,4 @@ export default async function registerAction(data: RegisterData) {
       return { success: false, message: "Registration failed" };
     }
   }
-  redirect("../../home");
 }
