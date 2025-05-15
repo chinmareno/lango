@@ -2,7 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,7 +13,7 @@ import { toast } from "sonner";
 import { registerSchema } from "@/lib/zod";
 import { signIn } from "next-auth/react";
 
-const RegisterPage = () => {
+export const RegisterPage = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
     useState(false);
@@ -44,6 +44,7 @@ const RegisterPage = () => {
         >
           <Input
             {...register("name")}
+            aria-label="Name"
             type="text"
             placeholder="Name"
             className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -54,7 +55,8 @@ const RegisterPage = () => {
           />
           <Input
             {...register("email")}
-            type="text  "
+            aria-label="Email"
+            type="text"
             placeholder="Email"
             className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
@@ -65,11 +67,17 @@ const RegisterPage = () => {
           <div className="relative">
             <Input
               {...register("password")}
+              aria-label="Password"
               type={isPasswordVisible ? "text" : "password"}
               placeholder="Password"
               className="px-4 pr-14 w-full py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <EyeToggleButton
+              ariaLabel={
+                isPasswordVisible
+                  ? "Click to hide password"
+                  : "Click to show password"
+              }
               eyeIsOpen={isPasswordVisible}
               setEyeIsOpen={setIsPasswordVisible}
               className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500"
@@ -82,11 +90,17 @@ const RegisterPage = () => {
           <div className="relative">
             <Input
               {...register("confirmPassword")}
+              aria-label="Confirm Password"
               type={isConfirmPasswordVisible ? "text" : "password"}
               placeholder="Confirm Password"
               className="px-4 pr-14 py-2 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <EyeToggleButton
+              ariaLabel={
+                isConfirmPasswordVisible
+                  ? "Click to hide confirm password"
+                  : "Click to show confirm password"
+              }
               eyeIsOpen={isConfirmPasswordVisible}
               setEyeIsOpen={setIsConfirmPasswordVisible}
               className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500"
@@ -97,6 +111,7 @@ const RegisterPage = () => {
             errorMessage={errors.confirmPassword?.message}
           />
           <button
+            aria-label="Submit to register"
             type="submit"
             className="bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
           >
@@ -105,7 +120,11 @@ const RegisterPage = () => {
         </form>
         <p className="text-sm text-center">
           Already have an account?
-          <Link href="./login" className="text-blue-600 hover:underline">
+          <Link
+            aria-label="Go to login page"
+            href="./login"
+            className="text-blue-600 hover:underline"
+          >
             Login
           </Link>
         </p>
@@ -113,5 +132,3 @@ const RegisterPage = () => {
     </div>
   );
 };
-
-export default RegisterPage;
