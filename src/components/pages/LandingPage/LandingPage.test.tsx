@@ -6,19 +6,19 @@ describe("LandingPage", () => {
     render(<LandingPage />);
 
     // Check header text
-    expect(screen.getByText(/Welcome to Lango/i)).toBeInTheDocument();
+    expect(screen.getByText("Welcome to Lango")).toBeInTheDocument();
 
     // Check paragraph text
     expect(
       screen.getByText(
-        /A freelance platform that help bridging translators with their clients./i
+        "A freelance platform that help bridging translators with their clients."
       )
     ).toBeInTheDocument();
 
     // Check buttons text
     expect(
-      screen.getByRole("link", { name: /Get Started/i })
+      screen.getByRole("link", { name: "Get Started" })
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /Login/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Login" })).toBeInTheDocument();
   });
 });
