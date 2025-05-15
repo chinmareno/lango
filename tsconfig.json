@@ -29,6 +29,7 @@
     ".next/types/**/*.ts",
     "jest.setup.ts",
     "jest.config.ts",
+    "src/__mocks__/*.ts",
     "minimal-report.js"
   ],
   "exclude": ["node_modules"]
