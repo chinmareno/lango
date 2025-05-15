@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "jest --reporters=default --reporters=./minimal-reporter.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
