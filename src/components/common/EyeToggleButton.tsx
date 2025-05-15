@@ -6,6 +6,7 @@ interface EyeToggleButtonProps {
   setEyeIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   className?: string;
   eyeSize?: number;
+  ariaLabel: string;
 }
 
 export const EyeToggleButton = ({
@@ -13,9 +14,11 @@ export const EyeToggleButton = ({
   setEyeIsOpen,
   className,
   eyeSize = 20,
+  ariaLabel,
 }: EyeToggleButtonProps) => {
   return (
     <button
+      aria-label={ariaLabel}
       type="button"
       className={className}
       onClick={() => setEyeIsOpen((eyeIsOpen) => !eyeIsOpen)}
