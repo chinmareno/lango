@@ -4,7 +4,7 @@ import { RegisterPage } from "./RegisterPage";
 jest.mock("next-auth/react");
 
 describe("RegisterPage", () => {
-  test("renders all input fields and button", () => {
+  test("renders RegisterPage", () => {
     render(<RegisterPage />);
     // Check input fields
     expect(screen.getByLabelText("Name")).toBeInTheDocument();
@@ -29,7 +29,6 @@ describe("RegisterPage", () => {
     ).toBeInTheDocument();
   });
 
-  // Test toggle password functionality
   test("toggles password visibility", async () => {
     render(<RegisterPage />);
     const user = userEvent.setup();
@@ -55,7 +54,6 @@ describe("RegisterPage", () => {
     );
   });
 
-  // Test toggle confirm password functionality
   test("toggles confirm password visibility", async () => {
     render(<RegisterPage />);
     const user = userEvent.setup();
