@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-const LoginPage = () => {
+export const LoginPage = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const {
@@ -59,6 +59,7 @@ const LoginPage = () => {
         >
           <Input
             {...register("email")}
+            aria-label="Email"
             type="email"
             placeholder="Email"
             className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -70,11 +71,17 @@ const LoginPage = () => {
           <div className="relative">
             <Input
               {...register("password")}
+              aria-label="Password"
               type={isPasswordVisible ? "text" : "password"}
               placeholder="Password"
               className="px-4 pr-14 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <EyeToggleButton
+              ariaLabel={
+                isPasswordVisible
+                  ? "Click to hide password"
+                  : "Click to show password"
+              }
               className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500"
               eyeIsOpen={isPasswordVisible}
               setEyeIsOpen={setIsPasswordVisible}
@@ -86,6 +93,7 @@ const LoginPage = () => {
           />
           <div className="flex items-center justify-between"></div>
           <button
+            aria-label="Submit to login"
             type="submit"
             className="bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
           >
@@ -95,6 +103,7 @@ const LoginPage = () => {
         <p className="text-sm text-center">
           Don't have an account?
           <Link
+            aria-label="Go to register page"
             href="./register"
             className="text-blue-600 hover:underline ml-1"
           >
@@ -105,4 +114,3 @@ const LoginPage = () => {
     </div>
   );
 };
-export default LoginPage;
