@@ -1,9 +1,9 @@
 "use server";
 
 import { z } from "zod";
-import { registerSchema } from "@/lib/zod";
 import { hashPassword } from "@/lib/bcrypt";
 import { createUser, findUserByEmail } from "@/lib/db";
+import { registerSchema } from "@/lib/schemas/registerSchema";
 
 type RegisterData = z.infer<typeof registerSchema>;
 
