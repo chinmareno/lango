@@ -9,4 +9,9 @@ export default {
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest", // transform TS and TSX files with ts-jest
   },
+  globals: {
+    "ts-jest": {
+      tsconfig: "tsconfig.jest.json",
+    },
+  },
 };
