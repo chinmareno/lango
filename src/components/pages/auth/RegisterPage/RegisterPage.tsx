@@ -31,7 +31,11 @@ export const RegisterPage = () => {
     if (!res?.success) {
       return toast.error(res?.message);
     }
-    await signIn("credentials", { email: res.email });
+    await signIn("credentials", {
+      email: res.email,
+      redirect: true,
+      redirectTo: "/dashboard",
+    });
   };
 
   return (
