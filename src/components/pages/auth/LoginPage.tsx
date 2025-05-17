@@ -48,25 +48,25 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="w-full max-w-md bg-white p-6 rounded-2xl shadow-lg">
-        <h1 className="text-2xl font-bold mb-6 text-center">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-6 py-8">
+      <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
+        <h1 className="text-3xl md:text-4xl font-semibold mb-8 text-center text-gray-900">
           Login to Your Account
         </h1>
         <form
           onSubmit={handleSubmit(handleLogin)}
-          className="flex flex-col gap-4"
+          className="flex flex-col gap-6"
         >
           <Input
             {...register("email")}
             aria-label="Email"
             type="email"
             placeholder="Email"
-            className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-5 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-base md:text-lg"
           />
           <ErrorMessage
             errorMessage={errors.email?.message}
-            className="ml-2 -mt-2"
+            className="ml-2 -mt-4 text-sm text-red-600"
           />
           <div className="relative">
             <Input
@@ -74,7 +74,7 @@ export const LoginPage = () => {
               aria-label="Password"
               type={isPasswordVisible ? "text" : "password"}
               placeholder="Password"
-              className="px-4 pr-14 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-5 pr-14 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-base md:text-lg w-full"
             />
             <EyeToggleButton
               ariaLabel={
@@ -82,30 +82,29 @@ export const LoginPage = () => {
                   ? "Click to hide password"
                   : "Click to show password"
               }
-              className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500"
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500 cursor-pointer"
               eyeIsOpen={isPasswordVisible}
               setEyeIsOpen={setIsPasswordVisible}
             />
           </div>
           <ErrorMessage
             errorMessage={errors.password?.message}
-            className="ml-2 -mt-2 text-sm"
+            className="ml-2 -mt-4 text-sm text-red-600"
           />
-          <div className="flex items-center justify-between"></div>
           <button
             aria-label="Submit to login"
             type="submit"
-            className="bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
+            className="bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition text-lg font-semibold"
           >
             Login
           </button>
         </form>
-        <p className="text-sm text-center">
-          Don't have an account?
+        <p className="mt-6 text-center text-base md:text-lg text-gray-700">
+          Don't have an account?{" "}
           <Link
             aria-label="Go to register page"
             href="./register"
-            className="text-blue-600 hover:underline ml-1"
+            className="text-blue-600 hover:underline"
           >
             Register
           </Link>
