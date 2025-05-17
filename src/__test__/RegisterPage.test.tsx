@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { RegisterPage } from "./RegisterPage";
+import { RegisterPage } from "@/components/pages/auth/RegisterPage";
 jest.mock("next-auth/react");
 
 describe("RegisterPage", () => {

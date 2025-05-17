@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { LandingPage } from "./LandingPage";
+import { LandingPage } from "@/components/pages/LandingPage";
 
 describe("LandingPage", () => {
   test("renders all texts correctly", () => {
