@@ -1,8 +1,8 @@
 "use client";
 
 import loginAction from "@/actions/auth/loginAction";
-import ErrorMessage from "@/components/common/ErrorMessage";
-import { EyeToggleButton } from "@/components/common/EyeToggleButton";
+import ErrorMessage from "@/components/ui/ErrorMessage";
+import { EyeToggleButton } from "@/components/ui/EyeToggleButton";
 import { Input } from "@/components/ui/input";
 import { loginSchema } from "@/lib/schemas/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
