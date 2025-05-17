@@ -39,42 +39,46 @@ export const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="w-full max-w-md bg-white p-6 rounded-2xl shadow-lg">
-        <h1 className="text-2xl font-bold mb-6 text-center">Create Account</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 py-8">
+      <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
+        <h1 className="text-4xl sm:text-5xl font-semibold mb-8 text-center text-gray-900">
+          Create Account
+        </h1>
         <form
           onSubmit={handleSubmit(handleRegister)}
-          className="flex flex-col gap-4"
+          className="flex flex-col gap-8"
         >
           <Input
             {...register("name")}
             aria-label="Name"
             type="text"
             placeholder="Name"
-            className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-5 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:shadow-md text-lg"
           />
           <ErrorMessage
-            className="ml-2 -mt-2 text-sm"
+            className="ml-2 -mt-5 text-base text-red-600"
             errorMessage={errors.name?.message}
           />
+
           <Input
             {...register("email")}
             aria-label="Email"
-            type="text"
+            type="email"
             placeholder="Email"
-            className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-5 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:shadow-md text-lg"
           />
           <ErrorMessage
-            className="ml-2 -mt-2 text-sm"
+            className="ml-2 -mt-5 text-base text-red-600"
             errorMessage={errors.email?.message}
           />
+
           <div className="relative">
             <Input
               {...register("password")}
               aria-label="Password"
               type={isPasswordVisible ? "text" : "password"}
               placeholder="Password"
-              className="px-4 pr-14 w-full py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-5 pr-14 py-3 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:shadow-md text-lg"
             />
             <EyeToggleButton
               ariaLabel={
@@ -84,20 +88,21 @@ export const RegisterPage = () => {
               }
               eyeIsOpen={isPasswordVisible}
               setEyeIsOpen={setIsPasswordVisible}
-              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500"
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500 cursor-pointer"
             />
           </div>
           <ErrorMessage
-            className="ml-2 -mt-2"
+            className="ml-2 -mt-5 text-base text-red-600"
             errorMessage={errors.password?.message}
           />
+
           <div className="relative">
             <Input
               {...register("confirmPassword")}
               aria-label="Confirm Password"
               type={isConfirmPasswordVisible ? "text" : "password"}
               placeholder="Confirm Password"
-              className="px-4 pr-14 py-2 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-5 pr-14 py-3 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:shadow-md text-lg"
             />
             <EyeToggleButton
               ariaLabel={
@@ -107,27 +112,29 @@ export const RegisterPage = () => {
               }
               eyeIsOpen={isConfirmPasswordVisible}
               setEyeIsOpen={setIsConfirmPasswordVisible}
-              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500"
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500 cursor-pointer"
             />
           </div>
           <ErrorMessage
-            className="ml-2 -mt-2 text-sm"
+            className="ml-2 -mt-5 text-base text-red-600"
             errorMessage={errors.confirmPassword?.message}
           />
+
           <button
             aria-label="Submit to register"
             type="submit"
-            className="bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
+            className="bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition text-lg font-semibold"
           >
             Register
           </button>
         </form>
-        <p className="text-sm text-center">
+
+        <p className="mt-6 text-center text-base text-gray-700">
           Already have an account?
           <Link
             aria-label="Go to login page"
             href="./login"
-            className="text-blue-600 hover:underline"
+            className="text-blue-600 hover:underline hover:text-blue-700 transition"
           >
             Login
           </Link>
