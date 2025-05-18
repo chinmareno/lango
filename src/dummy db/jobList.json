@@ -1,8 +1,11 @@
 [
   {
+    "id": "job-001",
+    "takenBy": "reno",
     "title": "Translate E-commerce Product Listings",
     "description": "Need 50 product descriptions translated from English to Bahasa Indonesia for an online store.",
     "fee": 40,
+    "status": "taken",
     "languagePair": {
       "source": "English",
       "target": "Bahasa Indonesia"
@@ -10,8 +13,12 @@
     "type": "one-time"
   },
   {
+    "id": "job-002",
     "title": "Mandarin Interview Subtitle",
+    "takenBy": null,
     "description": "Add English subtitles to a 25-minute interview video in Mandarin. Script already included.",
+    "status": "untaken",
+
     "fee": 20,
     "languagePair": {
       "source": "Mandarin",
@@ -20,8 +27,12 @@
     "type": "hourly"
   },
   {
+    "id": "job-003",
     "title": "Legal Document Translation",
     "description": "Translate a 15-page contract from Japanese to English. Legal terminology required.",
+    "status": "taken",
+    "takenBy": "joko",
+
     "fee": 150,
     "languagePair": {
       "source": "Japanese",
@@ -30,8 +41,12 @@
     "type": "one-time"
   },
   {
+    "id": "job-004",
     "title": "Ongoing Chat Assistant (Casual Conversation)",
     "description": "Assist a small business owner in chatting with Chinese clients for casual convos. No formal translation, just casual Mandarin-English help via text.",
+    "status": "untaken",
+    "takenBy": null,
+
     "fee": 12,
     "languagePair": {
       "source": "Mandarin",
@@ -40,8 +55,12 @@
     "type": "hourly"
   },
   {
+    "id": "job-005",
     "title": "Mobile App UI Translation",
     "description": "Translate an app's UI strings from English to Vietnamese (about 800 words).",
+    "status": "untaken",
+    "takenBy": null,
+
     "fee": 30,
     "languagePair": {
       "source": "English",
