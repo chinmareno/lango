@@ -3,9 +3,9 @@
     "title": "Translate E-commerce Product Listings",
     "description": "Need 50 product descriptions translated from English to Bahasa Indonesia for an online store.",
     "fee": 40,
-    "language": {
-      "from": "English",
-      "to": "Bahasa Indonesia"
+    "languagePair": {
+      "source": "English",
+      "target": "Bahasa Indonesia"
     },
     "type": "one-time"
   },
@@ -13,9 +13,9 @@
     "title": "Mandarin Interview Subtitle",
     "description": "Add English subtitles to a 25-minute interview video in Mandarin. Script already included.",
     "fee": 20,
-    "language": {
-      "from": "Mandarin",
-      "to": "English"
+    "languagePair": {
+      "source": "Mandarin",
+      "target": "English"
     },
     "type": "hourly"
   },
@@ -23,9 +23,9 @@
     "title": "Legal Document Translation",
     "description": "Translate a 15-page contract from Japanese to English. Legal terminology required.",
     "fee": 150,
-    "language": {
-      "from": "Japanese",
-      "to": "English"
+    "languagePair": {
+      "source": "Japanese",
+      "target": "English"
     },
     "type": "one-time"
   },
@@ -33,9 +33,9 @@
     "title": "Ongoing Chat Assistant (Casual Conversation)",
     "description": "Assist a small business owner in chatting with Chinese clients for casual convos. No formal translation, just casual Mandarin-English help via text.",
     "fee": 12,
-    "language": {
-      "from": "Mandarin",
-      "to": "English"
+    "languagePair": {
+      "source": "Mandarin",
+      "target": "English"
     },
     "type": "hourly"
   },
@@ -43,9 +43,9 @@
     "title": "Mobile App UI Translation",
     "description": "Translate an app's UI strings from English to Vietnamese (about 800 words).",
     "fee": 30,
-    "language": {
-      "from": "English",
-      "to": "Vietnamese"
+    "languagePair": {
+      "source": "English",
+      "target": "Vietnamese"
     },
     "type": "one-time"
   }
