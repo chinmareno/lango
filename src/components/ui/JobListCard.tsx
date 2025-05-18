@@ -10,8 +10,8 @@ export const JobListCard = ({
 }: JobListCardProps) => {
   return (
     <div className="flex border-gray-200 border-t-2 p-2.5 flex-row justify-between">
-      <span className="text-gray-700 text-sm ">{jobTitle}</span>
-      <span className="right-1 text-gray-700 text-sm">
+      <span className="text-left text-balance text-sm mr-12">{jobTitle}</span>
+      <span className="font-semibold text-sm">
         {jobType === "hourly" ? jobFee + "$/hour" : jobFee + "$/project"}
       </span>
     </div>
