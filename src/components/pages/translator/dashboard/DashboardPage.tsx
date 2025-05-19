@@ -2,7 +2,7 @@
 
 import getMyJobList from "@/actions/job/getJobListAction";
 import { useEffect, useState } from "react";
-import { JobDetailPanel } from "../../ui/JobDetailPanel";
+import { JobDetailPanel } from "../../../ui/JobDetailPanel";
 import { AvailableJobs } from "./AvailableJobs";
 import { Job } from "@/lib/interfaces/Job";
 import { EmptyJobDetail } from "@/components/ui/EmptyJobDetail";
