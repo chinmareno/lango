@@ -9,10 +9,50 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String   @id @default(uuid())
+  email      String   @unique
+  name       String
+  password   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  translator TranslatorProfile?
+  client     ClientProfile?
 }
+
+model TranslatorProfile {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  name      String   
+  user      User     @relation(fields: [userId], references: [id])
+  bio       String?
+  languages LanguageSkillTranslator[]
+}
+
+model LanguageSkillTranslator {
+  id               String             @id @default(uuid())
+  translatorId     String
+  translator       TranslatorProfile  @relation(fields: [translatorId], references: [id])
+  language         String
+  proficiency      Int
+  @@index([translatorId])
+}
+
+model ClientProfile {
+  id                   String   @id @default(uuid())
+  userId               String   @unique
+  name                 String   
+  user                 User     @relation(fields: [userId], references: [id])
+  company              String?
+  languagesNeeded LanguageSkillClient[]
+}
+
+model LanguageSkillClient {
+  id            String        @id @default(uuid())
+  clientId      String
+  client        ClientProfile @relation(fields: [clientId], references: [id])
+  language      String
+  proficiency   Int
+  @@index([clientId])
+}
+
+
