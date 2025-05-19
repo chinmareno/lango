@@ -2,8 +2,8 @@
 
 import { z } from "zod";
 import { hashPassword } from "@/lib/bcrypt";
-import { createUser, findUserByEmail } from "@/lib/db";
 import { registerSchema } from "@/lib/schemas/registerSchema";
+import { createUser, findUserByEmail } from "@/lib/db";
 
 type RegisterData = z.infer<typeof registerSchema>;
 
