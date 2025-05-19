@@ -1,4 +1,4 @@
-import { findUserByEmail } from "@/lib/db";
+import { findUserByEmail } from "@/lib/db/findUserByEmail";
 import Credentials from "next-auth/providers/credentials";
 import NextAuth from "next-auth";
 

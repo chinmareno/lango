@@ -3,7 +3,7 @@
 import { z } from "zod";
 import { loginSchema } from "@/lib/schemas/loginSchema";
 import { comparePassword } from "@/lib/bcrypt";
-import { findUserByEmail } from "@/lib/db";
+import { findUserByEmail } from "@/lib/db/findUserByEmail";
 
 type LoginSchema = z.infer<typeof loginSchema>;
 
