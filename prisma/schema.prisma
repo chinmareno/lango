@@ -8,15 +8,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  CLIENT
+  TRANSLATOR
+}
+
 model User {
-  id         String   @id @default(uuid())
-  email      String   @unique
-  name       String
-  password   String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  translator TranslatorProfile?
-  client     ClientProfile?
+  id                String   @id @default(uuid())
+  email             String   @unique
+  password          String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  currentRole       Role @default(TRANSLATOR)
+  translator        TranslatorProfile?
+  client            ClientProfile?
 }
 
 model TranslatorProfile {
@@ -43,7 +48,7 @@ model ClientProfile {
   name                 String   
   user                 User     @relation(fields: [userId], references: [id])
   company              String?
-  languagesNeeded LanguageSkillClient[]
+  languagesNeeded      LanguageSkillClient[]
 }
 
 model LanguageSkillClient {
