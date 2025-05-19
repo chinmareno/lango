@@ -22,6 +22,7 @@ export const registerSchema = z
       .string()
       .min(1, "Confirm Password is required")
       .max(32, "Password must be less than 32 characters"),
+    role: z.enum(["client", "translator"]),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
