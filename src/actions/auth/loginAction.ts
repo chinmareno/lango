@@ -19,7 +19,7 @@ export default async function loginAction(data: LoginSchema) {
     if (!isPasswordValid) {
       return { success: false, message: "Invalid email or password" };
     }
-    return { success: true, email: user.email };
+    return { success: true, email: user.email, currentRole: user.currentRole };
   } catch (error) {
     if (error instanceof z.ZodError) {
       return { success: false, message: error.errors[0].message };

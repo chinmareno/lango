@@ -30,7 +30,20 @@ export const LoginPage = () => {
       if (!res?.success) {
         return toast.error(res?.message, { richColors: true, duration: 3000 });
       }
-      await signIn("credentials", { email: res.email });
+      if (res.currentRole === "TRANSLATOR") {
+        await signIn("credentials", {
+          email: res.email,
+          redirect: true,
+          redirectTo: "/translator/dashboard",
+        });
+      }
+      if (res.currentRole === "CLIENT") {
+        await signIn("credentials", {
+          email: res.email,
+          redirect: true,
+          redirectTo: "/translator/dashboard",
+        });
+      }
     } catch (error) {
       const { message } = error as { message: string };
       if (message === "Invalid email or password") {
