@@ -15,7 +15,6 @@ export const {
       name: "credentials",
       credentials: {
         email: { label: "Email", type: "text" },
-        password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
         try {
@@ -36,6 +35,7 @@ export const {
       if (user) {
         token.email = user.email;
         token.name = user.name;
+        token.currentRole = user.currentRole;
       }
       return token;
     },
@@ -43,6 +43,7 @@ export const {
       if (token.id && token.email) {
         session.user.email = token.email;
         session.user.name = token.name;
+        session.user.currentRole = token.currentRole as string;
       }
       return session;
     },
