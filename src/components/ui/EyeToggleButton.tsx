@@ -1,5 +1,5 @@
 import { Eye, EyeClosed } from "lucide-react";
-import React from "react";
+import React, { ButtonHTMLAttributes } from "react";
 
 interface EyeToggleButtonProps {
   eyeIsOpen: boolean;
@@ -7,6 +7,7 @@ interface EyeToggleButtonProps {
   className?: string;
   eyeSize?: number;
   ariaLabel: string;
+  buttonProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
 }
 
 export const EyeToggleButton = ({
@@ -15,6 +16,7 @@ export const EyeToggleButton = ({
   className,
   eyeSize = 20,
   ariaLabel,
+  buttonProps,
 }: EyeToggleButtonProps) => {
   return (
     <button
@@ -22,6 +24,7 @@ export const EyeToggleButton = ({
       type="button"
       className={className}
       onClick={() => setEyeIsOpen((eyeIsOpen) => !eyeIsOpen)}
+      {...buttonProps}
     >
       {eyeIsOpen ? <Eye size={eyeSize} /> : <EyeClosed size={eyeSize} />}
     </button>
