@@ -15,6 +15,8 @@ import { registerSchema } from "@/lib/schemas/registerSchema";
 import RegisterRoleSelector, { Role } from "./RegisterRoleSelector";
 
 export const RegisterPage = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -30,23 +32,32 @@ export const RegisterPage = () => {
   });
 
   const handleRegister = async (data: z.infer<typeof registerSchema>) => {
-    const res = await registerAction(data);
-    if (!res?.success) {
-      return toast.error(res?.message);
-    }
-    if (data.role === "translator") {
-      await signIn("credentials", {
-        email: res.email,
-        redirect: true,
-        redirectTo: "/translator/dashboard",
-      });
-    }
-    if (data.role === "client") {
-      await signIn("credentials", {
-        email: res.email,
-        redirect: true,
-        redirectTo: "/client/dashboard",
-      });
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
+    try {
+      const res = await registerAction(data);
+      if (!res?.success) {
+        return toast.error(res?.message);
+      }
+      if (data.role === "translator") {
+        await signIn("credentials", {
+          email: res.email,
+          redirect: true,
+          redirectTo: "/translator/dashboard",
+        });
+      }
+      if (data.role === "client") {
+        await signIn("credentials", {
+          email: res.email,
+          redirect: true,
+          redirectTo: "/client/dashboard",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -77,6 +88,8 @@ export const RegisterPage = () => {
 
           <Input
             {...register("name")}
+            disabled={isSubmitting}
+            aria-disabled={isSubmitting}
             aria-label="Name"
             type="text"
             placeholder="Name"
@@ -89,6 +102,8 @@ export const RegisterPage = () => {
 
           <Input
             {...register("email")}
+            disabled={isSubmitting}
+            aria-disabled={isSubmitting}
             aria-label="Email"
             type="email"
             placeholder="Email"
@@ -102,12 +117,18 @@ export const RegisterPage = () => {
           <div className="relative">
             <Input
               {...register("password")}
+              disabled={isSubmitting}
+              aria-disabled={isSubmitting}
               aria-label="Password"
               type={isPasswordVisible ? "text" : "password"}
               placeholder="Password"
               className="px-5 pr-14 py-3 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:shadow-md text-lg"
             />
             <EyeToggleButton
+              buttonProps={{
+                disabled: isSubmitting,
+                "aria-disabled": isSubmitting,
+              }}
               ariaLabel={
                 isPasswordVisible
                   ? "Click to hide password"
@@ -115,7 +136,9 @@ export const RegisterPage = () => {
               }
               eyeIsOpen={isPasswordVisible}
               setEyeIsOpen={setIsPasswordVisible}
-              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500 cursor-pointer"
+              className={`absolute top-1/2 right-4 transform -translate-y-1/2 ${
+                isSubmitting ? "text-gray-300" : "text-gray-500"
+              }`}
             />
           </div>
           <ErrorMessage
@@ -127,11 +150,17 @@ export const RegisterPage = () => {
             <Input
               {...register("confirmPassword")}
               aria-label="Confirm Password"
+              aria-disabled={isSubmitting}
+              disabled={isSubmitting}
               type={isConfirmPasswordVisible ? "text" : "password"}
               placeholder="Confirm Password"
               className="px-5 pr-14 py-3 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:shadow-md text-lg"
             />
             <EyeToggleButton
+              buttonProps={{
+                disabled: isSubmitting,
+                "aria-disabled": isSubmitting,
+              }}
               ariaLabel={
                 isConfirmPasswordVisible
                   ? "Click to hide confirm password"
@@ -139,7 +168,9 @@ export const RegisterPage = () => {
               }
               eyeIsOpen={isConfirmPasswordVisible}
               setEyeIsOpen={setIsConfirmPasswordVisible}
-              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500 cursor-pointer"
+              className={`absolute top-1/2 right-4 transform -translate-y-1/2 ${
+                isSubmitting ? "text-gray-300" : "text-gray-500"
+              }`}
             />
           </div>
           <ErrorMessage
@@ -149,8 +180,12 @@ export const RegisterPage = () => {
 
           <button
             aria-label="Submit to register"
+            disabled={isSubmitting}
+            aria-disabled={isSubmitting}
             type="submit"
-            className="bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition text-lg font-semibold"
+            className={`text-white py-3 rounded-xl transition text-lg font-semibold ${
+              isSubmitting ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"
+            }`}
           >
             Register
           </button>
@@ -161,7 +196,12 @@ export const RegisterPage = () => {
           <Link
             aria-label="Go to login page"
             href="./login"
-            className="text-blue-600 hover:underline hover:text-blue-700 transition"
+            aria-disabled={isSubmitting}
+            className={`text-blue-600 ${
+              isSubmitting
+                ? "pointer-events-none"
+                : "hover:underline hover:text-blue-700 transition"
+            }`}
           >
             Login
           </Link>

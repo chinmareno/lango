@@ -14,6 +14,8 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 export const LoginPage = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const {
@@ -25,6 +27,9 @@ export const LoginPage = () => {
   });
 
   const handleLogin = async (data: z.infer<typeof loginSchema>) => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
     try {
       const res = await loginAction(data);
       if (!res?.success) {
@@ -41,22 +46,24 @@ export const LoginPage = () => {
         await signIn("credentials", {
           email: res.email,
           redirect: true,
-          redirectTo: "/translator/dashboard",
+          redirectTo: "/client/dashboard",
         });
       }
     } catch (error) {
       const { message } = error as { message: string };
       if (message === "Invalid email or password") {
-        return toast.error("Invalid email or password", {
+        toast.error("Invalid email or password", {
           richColors: true,
           duration: 3000,
         });
       } else {
-        return toast.error("Something went wrong", {
+        toast.error("Something went wrong", {
           richColors: true,
           duration: 3000,
         });
       }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -72,6 +79,8 @@ export const LoginPage = () => {
         >
           <Input
             {...register("email")}
+            disabled={isSubmitting}
+            aria-disabled={isSubmitting}
             aria-label="Email"
             type="email"
             placeholder="Email"
@@ -84,7 +93,9 @@ export const LoginPage = () => {
           <div className="relative">
             <Input
               {...register("password")}
+              disabled={isSubmitting}
               aria-label="Password"
+              aria-disabled={isSubmitting}
               type={isPasswordVisible ? "text" : "password"}
               placeholder="Password"
               className="px-5 pr-14 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-base md:text-lg w-full"
@@ -95,9 +106,15 @@ export const LoginPage = () => {
                   ? "Click to hide password"
                   : "Click to show password"
               }
-              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500 cursor-pointer"
+              className={`absolute top-1/2 right-4 transform -translate-y-1/2 ${
+                isSubmitting ? "text-gray-300" : "text-gray-500"
+              }`}
               eyeIsOpen={isPasswordVisible}
               setEyeIsOpen={setIsPasswordVisible}
+              buttonProps={{
+                disabled: isSubmitting,
+                "aria-disabled": isSubmitting,
+              }}
             />
           </div>
           <ErrorMessage
@@ -106,18 +123,30 @@ export const LoginPage = () => {
           />
           <button
             aria-label="Submit to login"
+            disabled={isSubmitting}
+            aria-disabled={isSubmitting}
             type="submit"
-            className="bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition text-lg font-semibold"
+            className={`text-white py-3 rounded-xl transition text-lg font-semibold ${
+              isSubmitting ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"
+            }`}
           >
             Login
           </button>
         </form>
         <p className="mt-6 text-center text-base md:text-lg text-gray-700">
-          Don't have an account?{" "}
+          Don't have an account?
           <Link
             aria-label="Go to register page"
             href="./register"
-            className="text-blue-600 hover:underline"
+            aria-disabled={isSubmitting}
+            className={`text-blue-600 ${
+              isSubmitting
+                ? "pointer-events-none"
+                : "hover:underline hover:text-blue-700 transition"
+            }`}
+            onClick={(e) => {
+              if (isSubmitting) e.preventDefault();
+            }}
           >
             Register
           </Link>
