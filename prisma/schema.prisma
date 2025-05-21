@@ -8,6 +8,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+<<<<<<< HEAD
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
@@ -15,4 +16,58 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+=======
+enum Role {
+  CLIENT
+  TRANSLATOR
 }
+
+model User {
+  id                String   @id @default(uuid())
+  email             String   @unique
+  password          String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  currentRole       Role @default(TRANSLATOR)
+  translator        TranslatorProfile?
+  client            ClientProfile?
+>>>>>>> develop
+}
+
+model TranslatorProfile {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  name      String   
+  user      User     @relation(fields: [userId], references: [id])
+  bio       String?
+  languages LanguageSkillTranslator[]
+}
+
+model LanguageSkillTranslator {
+  id               String             @id @default(uuid())
+  translatorId     String
+  translator       TranslatorProfile  @relation(fields: [translatorId], references: [id])
+  language         String
+  proficiency      Int
+  @@index([translatorId])
+}
+
+model ClientProfile {
+  id                   String   @id @default(uuid())
+  userId               String   @unique
+  name                 String   
+  user                 User     @relation(fields: [userId], references: [id])
+  company              String?
+  languagesNeeded      LanguageSkillClient[]
+}
+
+model LanguageSkillClient {
+  id            String        @id @default(uuid())
+  clientId      String
+  client        ClientProfile @relation(fields: [clientId], references: [id])
+  language      String
+  proficiency   Int
+  @@index([clientId])
+}
+
+
