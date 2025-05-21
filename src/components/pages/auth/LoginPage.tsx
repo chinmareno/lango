@@ -127,7 +127,9 @@ export const LoginPage = () => {
             aria-disabled={isSubmitting}
             type="submit"
             className={`text-white py-3 rounded-xl transition text-lg font-semibold ${
-              isSubmitting ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"
+              isSubmitting
+                ? "bg-blue-400"
+                : "bg-blue-600 cursor-pointer hover:bg-blue-700"
             }`}
           >
             Login
