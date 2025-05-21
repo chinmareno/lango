@@ -16,7 +16,7 @@ const RegisterRoleSelector = ({ setSelectedRole }: IRegisterRoleSelector) => {
           {/* Client */}
           <button
             onClick={() => setSelectedRole("client")}
-            className="flex flex-col items-center p-6 rounded-2xl border shadow-md transition-all duration-200 bg-white text-gray-700 hover:border-blue-400 hover:shadow-lg"
+            className="flex cursor-pointer flex-col items-center p-6 rounded-2xl border shadow-md transition-all duration-200 bg-white text-gray-700 hover:border-blue-400 hover:shadow-lg"
           >
             <Briefcase size={40} className="mb-2" />
             <span className="text-lg font-semibold">Client</span>
@@ -28,7 +28,7 @@ const RegisterRoleSelector = ({ setSelectedRole }: IRegisterRoleSelector) => {
           {/* Translator */}
           <button
             onClick={() => setSelectedRole("translator")}
-            className="flex flex-col items-center p-6 rounded-2xl border shadow-md transition-all duration-200 bg-white text-gray-700 hover:border-green-400 hover:shadow-lg"
+            className="flex cursor-pointer flex-col items-center p-6 rounded-2xl border shadow-md transition-all duration-200 bg-white text-gray-700 hover:border-green-400 hover:shadow-lg"
           >
             <User size={40} className="mb-2" />
             <span className="text-lg font-semibold">Translator</span>
