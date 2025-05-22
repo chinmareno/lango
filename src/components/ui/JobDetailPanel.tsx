@@ -1,5 +1,5 @@
 import { Job } from "@/lib/interfaces/Job";
-import { SelectedJobProps } from "../pages/translator/dashboard/DashboardPage";
+import { SelectedJobProps } from "../pages/translator/dashboard";
 
 export const JobDetailPanel = ({
   title,

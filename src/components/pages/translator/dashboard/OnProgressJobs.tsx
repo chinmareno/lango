@@ -1,7 +1,7 @@
 import { JobListCard } from "@/components/ui/JobListCard";
 import { Job } from "@/lib/interfaces/Job";
 import { Dispatch, SetStateAction, useMemo } from "react";
-import { SelectedJobProps } from "./DashboardPage";
+import { SelectedJobProps } from ".";
 
 interface IOnProgressJobs {
   jobsList: Job[] | null;
