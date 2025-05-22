@@ -3,12 +3,12 @@ import { Job } from "@/lib/interfaces/Job";
 import { Dispatch, SetStateAction, useMemo } from "react";
 import { SelectedJobProps } from ".";
 
-interface IAvailableJobs {
+interface IAppliedJobs {
   jobsList: Job[] | null;
   setSelectedJob: Dispatch<SetStateAction<SelectedJobProps | null>>;
 }
 
-export const AvailableJobs = ({ jobsList, setSelectedJob }: IAvailableJobs) => {
+export const AppliedJobs = ({ jobsList, setSelectedJob }: IAppliedJobs) => {
   if (jobsList == null) {
     return (
       <div className="bg-white p-6 rounded-xl shadow-md">
@@ -19,7 +19,7 @@ export const AvailableJobs = ({ jobsList, setSelectedJob }: IAvailableJobs) => {
     );
   }
   const userId = "reno";
-  const availableJobsList = useMemo(
+  const appliedJobsList = useMemo(
     () =>
       jobsList?.filter(
         (job) => !(job.takenBy === userId && job.status === "taken")
@@ -28,8 +28,8 @@ export const AvailableJobs = ({ jobsList, setSelectedJob }: IAvailableJobs) => {
   );
   return (
     <div className="bg-white p-6 rounded-xl shadow-md">
-      <h2 className="text-lg font-semibold mb-1">Available Jobs</h2>
-      {availableJobsList.map((job, index) => (
+      <h2 className="text-lg font-semibold mb-1">Applied Jobs</h2>
+      {appliedJobsList.map((job, index) => (
         <button
           key={index}
           className="w-full hover:bg-gray-100"

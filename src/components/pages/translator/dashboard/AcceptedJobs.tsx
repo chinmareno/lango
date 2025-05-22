@@ -3,15 +3,12 @@ import { Job } from "@/lib/interfaces/Job";
 import { Dispatch, SetStateAction, useMemo } from "react";
 import { SelectedJobProps } from ".";
 
-interface IOnProgressJobs {
+interface IAcceptedJobs {
   jobsList: Job[] | null;
   setSelectedJob: Dispatch<SetStateAction<SelectedJobProps | null>>;
 }
 
-export const OnProgressJobs = ({
-  jobsList,
-  setSelectedJob,
-}: IOnProgressJobs) => {
+export const AcceptedJobs = ({ jobsList, setSelectedJob }: IAcceptedJobs) => {
   if (jobsList === null) {
     return (
       <div className="bg-white p-6 rounded-xl shadow-md">
@@ -22,7 +19,7 @@ export const OnProgressJobs = ({
     );
   }
   const userId = "reno";
-  const onProgressJobsList = useMemo(
+  const acceptedJobsList = useMemo(
     () =>
       jobsList.filter(
         (job) => job.takenBy === userId && job.status === "taken"
@@ -31,8 +28,8 @@ export const OnProgressJobs = ({
   );
   return (
     <div className="bg-white p-6 rounded-xl shadow-md">
-      <h2 className="text-lg font-semibold mb-1">Ongoing Projects</h2>
-      {onProgressJobsList.map((job, index) => (
+      <h2 className="text-lg font-semibold mb-1">Accepted Projects</h2>
+      {acceptedJobsList.map((job, index) => (
         <button
           key={index}
           className="w-full hover:bg-gray-100"

@@ -3,15 +3,15 @@
 import getMyJobList from "@/actions/job/getJobListAction";
 import { useEffect, useState } from "react";
 import { JobDetailPanel } from "../../../ui/JobDetailPanel";
-import { AvailableJobs } from "./AvailableJobs";
 import { Job } from "@/lib/interfaces/Job";
 import { EmptyJobDetail } from "@/components/ui/EmptyJobDetail";
-import { OnProgressJobs } from "./OnProgressJobs";
+import { AppliedJobs } from "./AppliedJobs";
+import { AcceptedJobs } from "./AcceptedJobs";
 
 export interface SelectedJobProps extends Job {
   selectedJobType: string; // TODO: after db is ready change to union type
 }
-export const DashboardPage = () => {
+export const TranslatorDashboard = () => {
   useEffect(() => {
     const myJobList = getMyJobList();
 
@@ -32,8 +32,8 @@ export const DashboardPage = () => {
 
       <main>
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <AvailableJobs jobsList={jobsList} setSelectedJob={setSelectedJob} />
-          <OnProgressJobs jobsList={jobsList} setSelectedJob={setSelectedJob} />
+          <AppliedJobs jobsList={jobsList} setSelectedJob={setSelectedJob} />
+          <AcceptedJobs jobsList={jobsList} setSelectedJob={setSelectedJob} />
           <div className="bg-white p-6 rounded-xl shadow-md">
             <h2 className="text-lg font-semibold mb-1">Earnings</h2>
             <p className="text-gray-700 text-sm">
