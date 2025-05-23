@@ -20,8 +20,8 @@ model User {
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
   currentRole       Role @default(TRANSLATOR)
-  translator        TranslatorProfile?
-  client            ClientProfile?
+  translatorProfile        TranslatorProfile?
+  clientProfile            ClientProfile?
 }
 
 model TranslatorProfile {
@@ -60,6 +60,8 @@ model Job {
   description       String
   sourceLanguage    String
   targetLanguage    String
+  fee               Float
+  paymentType       PaymentType
   applications      Application[]
   status            JobStatus @default(OPEN)
   createdAt         DateTime @default(now())
@@ -101,3 +103,7 @@ enum JobStatus {
   COMPLETED
 }
 
+enum PaymentType {
+  HOURLY
+  FIXED
+}
