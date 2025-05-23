@@ -1,10 +1,9 @@
 import { Dispatch, SetStateAction } from "react";
 import { User, Briefcase } from "lucide-react";
-
-export type Role = "client" | "translator";
+import { UserRole } from "@/lib/types";
 
 interface IRegisterRoleSelector {
-  setSelectedRole: Dispatch<SetStateAction<Role | null>>;
+  setSelectedRole: Dispatch<SetStateAction<UserRole | null>>;
 }
 
 const RegisterRoleSelector = ({ setSelectedRole }: IRegisterRoleSelector) => {
