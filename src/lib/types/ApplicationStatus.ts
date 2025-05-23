@@ -1,6 +1,1 @@
-type ApplicationStatus =
-  | "BASIC"
-  | "CONVERSATIONAL"
-  | "FLUENT"
-  | "PROFESSIONAL"
-  | "NATIVE";
+export type ApplicationStatus = "PENDING" | "ACCEPTED" | "REJECTED";

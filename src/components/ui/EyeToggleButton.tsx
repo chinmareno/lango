@@ -1,5 +1,5 @@
 import { Eye, EyeClosed } from "lucide-react";
-import React, { ButtonHTMLAttributes } from "react";
+import React from "react";
 
 interface EyeToggleButtonProps {
   eyeIsOpen: boolean;

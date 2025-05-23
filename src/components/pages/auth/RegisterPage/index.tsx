@@ -6,18 +6,20 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import ErrorMessage from "@/components/ui/ErrorMessage";
-import { EyeToggleButton } from "@/components/ui/EyeToggleButton";
-import registerAction from "@/actions/auth/registerAction";
 import { toast } from "sonner";
 import { signIn } from "next-auth/react";
-import { registerSchema } from "@/lib/schemas/registerSchema";
-import RegisterRoleSelector, { Role } from "./RegisterRoleSelector";
+import { registerAction } from "@/actions/auth";
+import { registerSchema } from "@/lib/schemas/auth";
+import { UserRole } from "@/lib/types";
+import RegisterRoleSelector from "./RegisterRoleSelector";
+import { ErrorMessage, EyeToggleButton } from "@/components/ui";
 
 export const RegisterPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [selectedRole, setSelectedRole] = useState<Role | null>(null);
+  const [selectedUserRole, setSelectedUserRole] = useState<UserRole | null>(
+    null
+  );
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
@@ -61,8 +63,8 @@ export const RegisterPage = () => {
     }
   };
 
-  if (!selectedRole) {
-    return <RegisterRoleSelector setSelectedRole={setSelectedRole} />;
+  if (!selectedUserRole) {
+    return <RegisterRoleSelector setSelectedRole={setSelectedUserRole} />;
   }
 
   return (
@@ -72,7 +74,7 @@ export const RegisterPage = () => {
           Create Account
         </h1>
         <p className="text-center text-gray-600 mb-6 text-lg capitalize">
-          {selectedRole === "client"
+          {selectedUserRole === "client"
             ? "Let’s find translator out there 👀"
             : "Looks like someone’s ready to get hired 😎"}
         </p>
@@ -82,7 +84,7 @@ export const RegisterPage = () => {
         >
           <input
             type="hidden"
-            value={selectedRole ?? ""}
+            value={selectedUserRole ?? ""}
             {...register("role")}
           />
 

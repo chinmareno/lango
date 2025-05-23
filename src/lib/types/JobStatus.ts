@@ -1,1 +1,1 @@
-type JobStatus = "OPEN" | "IN_PROGRESS" | "COMPLETED";
+export type JobStatus = "OPEN" | "IN_PROGRESS" | "COMPLETED";

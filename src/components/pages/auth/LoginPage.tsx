@@ -1,14 +1,12 @@
 "use client";
 
-import loginAction from "@/actions/auth/loginAction";
-import ErrorMessage from "@/components/ui/ErrorMessage";
-import { EyeToggleButton } from "@/components/ui/EyeToggleButton";
-import { Input } from "@/components/ui/input";
-import { loginSchema } from "@/lib/schemas/loginSchema";
+import { loginAction } from "@/actions/auth";
+import { ErrorMessage, EyeToggleButton, Input } from "@/components/ui";
+import { loginSchema } from "@/lib/schemas/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";

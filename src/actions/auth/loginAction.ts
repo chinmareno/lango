@@ -1,13 +1,13 @@
 "use server";
 
 import { z } from "zod";
-import { loginSchema } from "@/lib/schemas/loginSchema";
+import { loginSchema } from "@/lib/schemas/auth/loginSchema";
 import { comparePassword } from "@/lib/bcrypt";
-import { findUserByEmail } from "@/lib/db/findUserByEmail";
+import { findUserByEmail } from "@/lib/db/user/findUserByEmail";
 
 type LoginSchema = z.infer<typeof loginSchema>;
 
-export default async function loginAction(data: LoginSchema) {
+export async function loginAction(data: LoginSchema) {
   try {
     loginSchema.parse(data);
     const { email, password } = data;
