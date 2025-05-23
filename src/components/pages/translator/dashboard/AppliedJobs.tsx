@@ -1,46 +1,56 @@
-import { JobListCard } from "@/components/ui/JobListCard";
-import { Job } from "@/lib/interfaces/Job";
+import { JobListCard } from "@/components/ui";
+import { IApplicationWithJob } from "@/lib/interfaces/IApplication";
 import { Dispatch, SetStateAction, useMemo } from "react";
-import { SelectedJobProps } from ".";
 
 interface IAppliedJobs {
-  jobsList: Job[] | null;
-  setSelectedJob: Dispatch<SetStateAction<SelectedJobProps | null>>;
+  applications: IApplicationWithJob[] | null;
+  setSelectedApplication: Dispatch<SetStateAction<IApplicationWithJob | null>>;
 }
 
-export const AppliedJobs = ({ jobsList, setSelectedJob }: IAppliedJobs) => {
-  if (jobsList == null) {
+export const AppliedJobs = ({
+  applications,
+  setSelectedApplication,
+}: IAppliedJobs) => {
+  if (applications == null) {
     return (
       <div className="bg-white p-6 rounded-xl shadow-md">
+        <h2 className="text-lg font-semibold mb-1">No Applications</h2>
         <p className="text-gray-700 text-sm">
           Browse and apply for new translation jobs.
         </p>
       </div>
     );
   }
-  const userId = "reno";
-  const appliedJobsList = useMemo(
+
+  const pendingAndRejectedApplications = useMemo(
     () =>
-      jobsList?.filter(
-        (job) => !(job.takenBy === userId && job.status === "taken")
-      ),
-    [jobsList]
+      applications
+        .filter(({ status }) => status === "PENDING" || status === "REJECTED")
+        .sort((a) => {
+          if (a.status === "PENDING") return -1;
+          else if (a.status === "REJECTED") return 1;
+          else return 0;
+        }),
+    [applications]
   );
+
   return (
     <div className="bg-white p-6 rounded-xl shadow-md">
       <h2 className="text-lg font-semibold mb-1">Applied Jobs</h2>
-      {appliedJobsList.map((job, index) => (
+      {pendingAndRejectedApplications.map((application, index) => (
         <button
           key={index}
           className="w-full hover:bg-gray-100"
           onClick={() =>
-            setSelectedJob({ ...job, selectedJobType: "available jobs" })
+            setSelectedApplication({
+              ...application,
+            })
           }
         >
           <JobListCard
-            jobTitle={job.title}
-            jobType={job.type}
-            jobFee={job.fee}
+            jobTitle={application.job.title}
+            jobType={application.job.paymentType}
+            jobFee={application.job.fee}
           />
         </button>
       ))}
