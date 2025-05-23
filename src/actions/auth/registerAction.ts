@@ -2,12 +2,14 @@
 
 import { z } from "zod";
 import { hashPassword } from "@/lib/bcrypt";
-import { registerSchema } from "@/lib/schemas/registerSchema";
-import { createUser, findUserByEmail } from "@/lib/db";
+import { createUser, findUserByEmail } from "@/lib/db/user";
+import { registerSchema } from "@/lib/schemas/auth";
+import { createTranslatorProfile } from "@/lib/db/translator";
+import { createClientProfile } from "@/lib/db/client";
 
 type RegisterData = z.infer<typeof registerSchema>;
 
-export default async function registerAction(data: RegisterData) {
+export async function registerAction(data: RegisterData) {
   try {
     registerSchema.parse(data);
     const { name, email, password, role } = data;
@@ -17,7 +19,13 @@ export default async function registerAction(data: RegisterData) {
     }
 
     const hashedPassword = await hashPassword(password);
-    await createUser({ name, email, password: hashedPassword, role });
+    const user = await createUser({ email, password: hashedPassword, role });
+
+    if (user && role === "translator") {
+      await createTranslatorProfile({ userId: user.id, name });
+    } else if (user && role === "client") {
+      await createClientProfile({ userId: user.id, name });
+    }
     return { success: true, email };
   } catch (error: any) {
     console.log("Error happen because of: ", error.message);
