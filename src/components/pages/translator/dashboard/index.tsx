@@ -1,25 +1,30 @@
 "use client";
 
-import getMyJobList from "@/actions/job/getJobListAction";
 import { useEffect, useState } from "react";
-import { JobDetailPanel } from "../../../ui/JobDetailPanel";
-import { Job } from "@/lib/interfaces/Job";
-import { EmptyJobDetail } from "@/components/ui/EmptyJobDetail";
 import { AppliedJobs } from "./AppliedJobs";
 import { AcceptedJobs } from "./AcceptedJobs";
+import { getApplicationsAction } from "@/actions/application";
+import { useSession } from "next-auth/react";
+import { IApplicationWithJob } from "@/lib/interfaces/IApplication";
+import { JobDetailPanel } from "@/components/ui";
 
-export interface SelectedJobProps extends Job {
-  selectedJobType: string; // TODO: after db is ready change to union type
-}
 export const TranslatorDashboard = () => {
+  const [selectedApplication, setSelectedApplication] =
+    useState<IApplicationWithJob | null>(null);
+  const [applications, setApplication] = useState<IApplicationWithJob[] | null>(
+    null
+  );
+  const { data: session } = useSession();
   useEffect(() => {
-    const myJobList = getMyJobList();
-
-    setJobsList(myJobList);
-  }, []);
-  const [jobsList, setJobsList] = useState<Job[] | null>(null);
-
-  const [selectedJob, setSelectedJob] = useState<SelectedJobProps | null>(null);
+    const fetchJobs = async () => {
+      if (!session?.user?.translatorId) return;
+      const applicationsWithJob = await getApplicationsAction(
+        session?.user?.translatorId
+      );
+      if (applicationsWithJob) setApplication(applicationsWithJob);
+    };
+    fetchJobs();
+  }, [applications]);
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
@@ -32,8 +37,14 @@ export const TranslatorDashboard = () => {
 
       <main>
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <AppliedJobs jobsList={jobsList} setSelectedJob={setSelectedJob} />
-          <AcceptedJobs jobsList={jobsList} setSelectedJob={setSelectedJob} />
+          <AppliedJobs
+            applications={applications}
+            setSelectedApplication={setSelectedApplication}
+          />
+          <AcceptedJobs
+            applications={applications}
+            setSelectedApplication={setSelectedApplication}
+          />
           <div className="bg-white p-6 rounded-xl shadow-md">
             <h2 className="text-lg font-semibold mb-1">Earnings</h2>
             <p className="text-gray-700 text-sm">
@@ -42,11 +53,7 @@ export const TranslatorDashboard = () => {
           </div>
         </section>
         <section className="flex flex-row justify-center bg-amber-300 mt-10">
-          {selectedJob ? (
-            <JobDetailPanel {...selectedJob} />
-          ) : (
-            <EmptyJobDetail />
-          )}
+          <JobDetailPanel selectedApplication={selectedApplication} />
         </section>
       </main>
     </div>
