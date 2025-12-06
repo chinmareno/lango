@@ -52,7 +52,7 @@ export const TranslatorDashboardPage = () => {
             </p>
           </div>
         </section>
-        <section className="flex flex-row justify-center bg-amber-300 mt-10">
+        <section className="flex flex-row justify-center mt-10">
           <JobDetailPanel selectedApplication={selectedApplication} />
         </section>
       </main>

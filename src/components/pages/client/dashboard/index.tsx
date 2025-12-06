@@ -37,7 +37,7 @@ export const ClientDashboardPage = () => {
     setIsAddingJob(true);
   };
   return (
-    <div className="p-4 bg-amber-700 max-w-4xl mx-auto">
+    <div className="p-4 max-w-4xl mx-auto">
       {isAddingJob && (
         <form
           onSubmit={handleSubmit(handleCreateJob)}
@@ -94,7 +94,7 @@ export const ClientDashboardPage = () => {
       <h1 className="text-2xl font-bold mb-4">Client Dashboard</h1>
 
       {/* Tabs */}
-      <div className="flex gap-2 bg-amber-200 mb-6">
+      <div className="flex gap-2 mb-6">
         {tabs.map((tab) => (
           <button
             key={tab}
