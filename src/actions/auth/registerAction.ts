@@ -8,8 +8,11 @@ import { createTranslatorProfile } from "@/lib/db/translator";
 import { createClientProfile } from "@/lib/db/client";
 
 type RegisterData = z.infer<typeof registerSchema>;
+interface IRegisterAction extends RegisterData {
+  role: "translator" | "client";
+}
 
-export async function registerAction(data: RegisterData) {
+export async function registerAction(data: IRegisterAction) {
   try {
     registerSchema.parse(data);
     const { name, email, password, role } = data;

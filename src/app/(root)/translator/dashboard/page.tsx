@@ -1,6 +1,6 @@
-import { TranslatorDashboard } from "@/components/pages/translator/dashboard";
+import { TranslatorDashboardPage } from "@/components/pages/translator/dashboard";
 import React from "react";
 
-export default function DashboardRoute() {
-  return <TranslatorDashboard />;
+export default function TranslatorDashboardRoute() {
+  return <TranslatorDashboardPage />;
 }

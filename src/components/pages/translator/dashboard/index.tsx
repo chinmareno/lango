@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import { IApplicationWithJob } from "@/lib/interfaces/IApplication";
 import { JobDetailPanel } from "@/components/ui";
 
-export const TranslatorDashboard = () => {
+export const TranslatorDashboardPage = () => {
   const [selectedApplication, setSelectedApplication] =
     useState<IApplicationWithJob | null>(null);
   const [applications, setApplication] = useState<IApplicationWithJob[] | null>(

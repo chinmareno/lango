@@ -1,8 +1,6 @@
-import { ClientDashboard } from "@/components/pages/client/ClientDashboard";
+import { ClientDashboardPage } from "@/components/pages/client/dashboard";
 import React from "react";
 
-const dashboard = () => {
-  return <ClientDashboard />;
-};
-
-export default dashboard;
+export default function ClientDashboardRoute() {
+  return <ClientDashboardPage />;
+}

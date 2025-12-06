@@ -1,3 +1,4 @@
+"use server";
 import { createJobAction } from "./createJobAction";
 import { getJobsAction } from "./getJobsAction";
 

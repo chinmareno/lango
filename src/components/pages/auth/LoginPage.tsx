@@ -39,8 +39,7 @@ export const LoginPage = () => {
           redirect: true,
           redirectTo: "/translator/dashboard",
         });
-      }
-      if (res.currentRole === "CLIENT") {
+      } else if (res.currentRole === "CLIENT") {
         await signIn("credentials", {
           email: res.email,
           redirect: true,

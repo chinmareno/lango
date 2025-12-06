@@ -2,12 +2,8 @@
 
 import { createJob } from "@/lib/db/job";
 import { IJob } from "@/lib/interfaces/IJob";
-import {
-  PrismaClientKnownRequestError,
-  PrismaClientValidationError,
-} from "@prisma/client/runtime/library";
 
-export const createJobAction = async (jobData: IJob) => {
+export async function createJobAction(jobData: IJob) {
   try {
     const {
       clientId,
@@ -27,15 +23,9 @@ export const createJobAction = async (jobData: IJob) => {
       sourceLanguage,
       targetLanguage,
     });
+    return { success: true, message: "Job created successfully" };
   } catch (error) {
-    if (error instanceof PrismaClientKnownRequestError) {
-      if (error.code === "P2003") {
-        console.error("Invalid clientId");
-      }
-    } else if (error instanceof PrismaClientValidationError) {
-      console.error("Missing or invalid fields");
-    } else {
-      console.error("Unexpected error", error);
-    }
+    console.log(error);
+    return { success: false, message: "Failed to create job" };
   }
-};
+}

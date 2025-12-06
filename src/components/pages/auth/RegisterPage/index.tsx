@@ -38,18 +38,18 @@ export const RegisterPage = () => {
     setIsSubmitting(true);
 
     try {
-      const res = await registerAction(data);
+      const res = await registerAction({ ...data, role: selectedUserRole! });
       if (!res?.success) {
         return toast.error(res?.message);
       }
-      if (data.role === "translator") {
+      if (selectedUserRole === "translator") {
         await signIn("credentials", {
           email: res.email,
           redirect: true,
           redirectTo: "/translator/dashboard",
         });
       }
-      if (data.role === "client") {
+      if (selectedUserRole === "client") {
         await signIn("credentials", {
           email: res.email,
           redirect: true,
@@ -82,12 +82,6 @@ export const RegisterPage = () => {
           onSubmit={handleSubmit(handleRegister)}
           className="flex flex-col gap-8"
         >
-          <input
-            type="hidden"
-            value={selectedUserRole ?? ""}
-            {...register("role")}
-          />
-
           <Input
             {...register("name")}
             disabled={isSubmitting}
